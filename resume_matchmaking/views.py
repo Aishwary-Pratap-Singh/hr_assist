@@ -6,9 +6,20 @@ from django.utils.decorators import method_decorator
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import os
+import PyPDF2
 
 def health(request):
     return JsonResponse({"status": "ok"})
+
+def extract_pdf_text(file_obj):
+    """
+    Extracts text from a PDF file object.
+    """
+    reader = PyPDF2.PdfReader(file_obj)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text() or ""
+    return text
 
 @method_decorator(csrf_exempt, name='dispatch')
 class JDUploadView(View):
@@ -49,7 +60,7 @@ class JDUploadView(View):
 
         return JsonResponse({'message': 'JD PDF uploaded successfully.', 'file_path': file_path}, status=201)
     
-    
+
 @method_decorator(csrf_exempt, name='dispatch')
 class ResumeUploadView(View):
     """

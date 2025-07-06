@@ -5,6 +5,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from .agent_workflow.agent_service import get_all_resume_text_as_string
+import json
+
 import os
 import PyPDF2
 
@@ -99,3 +102,16 @@ class ResumeUploadView(View):
         # Here you can add PDF processing logic if needed
 
         return JsonResponse({'message': 'Resume PDF uploaded successfully.', 'file_path': file_path}, status=201)
+    
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ListResumesView(View):
+    def get(self, request):
+        """
+        API endpoint to list all resume files in the candidate_resumes folder.
+        Returns a JSON response with the list of file names.
+        """
+        print("Listing resumes...")
+        resume_text_dict = get_all_resume_text_as_string()
+        print("\n", resume_text_dict )
+        return JsonResponse({'message': 'Resume fetched successfully.'}, status=200)

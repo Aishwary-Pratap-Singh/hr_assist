@@ -13,4 +13,3 @@ class DocumentText(models.Model):
     def __str__(self):
         return f"{self.file_name} ({self.doc_type})"
 
-# Create your models here.

@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-from .agent_workflow.agent_service import get_all_resume_text_as_string
+from .agent_workflow.agent_service import get_all_resume_text_as_string, get_jd_text_as_string
 import json
 
 import os
@@ -112,6 +112,6 @@ class ListResumesView(View):
         Returns a JSON response with the list of file names.
         """
         print("Listing resumes...")
-        resume_text_dict = get_all_resume_text_as_string()
+        resume_text_dict = get_jd_text_as_string()
         print("\n", resume_text_dict )
         return JsonResponse({'message': 'Resume fetched successfully.'}, status=200)

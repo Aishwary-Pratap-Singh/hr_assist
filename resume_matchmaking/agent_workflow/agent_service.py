@@ -1,34 +1,7 @@
-# from dotenv import load_dotenv
-# from agents import Agent, Runner, trace, function_tool
-# from openai.types.responses import ResponseTextDeltaEvent
-# from typing import Dict
-# import sendgrid
-# from sendgrid.helpers.mail import Mail, Email, To, Content
-# import asyncio
-
-
 import os
 import json
 from django.conf import settings
 import PyPDF2
-
-# def list_resume_files():
-#     """
-#     Returns a list of absolute file paths for all resumes in the candidate_resumes folder.
-#     """
-#     print("Listing resumes service...")
-#     resumes_dir = os.path.join(settings.MEDIA_ROOT, "uploads", "candidate_resumes")
-#     if not os.path.exists(resumes_dir):
-#         return []
-#     print(f"Resumes directory: {resumes_dir}")
-#     # Only include files (not directories) and filter for PDFs
-#     resumes = [
-#         os.path.join(resumes_dir, f)
-#         for f in os.listdir(resumes_dir)
-#         if os.path.isfile(os.path.join(resumes_dir, f)) and f.lower().endswith('.pdf')
-#     ]
-#     print(resumes)
-#     return resumes
 
 
 def get_resume_directory():
@@ -89,3 +62,10 @@ def get_all_resume_text_as_string():
     print(resume_text_dict)
     return resume_text_dict
     # return json.dumps({"result": resume_text_dict})
+
+def get_jd_text_as_string():
+    directory = get_jd_directory()
+    pdf_files = get_pdf_files(directory)
+    jd_text_dict = build_resume_text_dict(pdf_files)
+    print(jd_text_dict)
+    return jd_text_dict

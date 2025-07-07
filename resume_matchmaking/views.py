@@ -6,9 +6,6 @@ from django.utils.decorators import method_decorator
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from .agent_workflow.agent_service import get_all_resume_text_as_string, get_jd_text_as_string, call_agent
-import json
-
-import os
 import PyPDF2
 
 def health(request):

@@ -1,5 +1,4 @@
 import os
-import json
 from django.conf import settings
 import PyPDF2
 from .agent import run_agent

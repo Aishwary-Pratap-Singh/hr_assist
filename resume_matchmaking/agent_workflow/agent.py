@@ -4,8 +4,6 @@ import google.generativeai as genai
 from decouple import config
 
 
-
-
 def hr_agent(content):
     genai.configure(api_key=config("GEMINI_SECRET_KEY"))
     model = genai.GenerativeModel("gemini-2.0-flash") 
